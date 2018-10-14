@@ -1,7 +1,18 @@
 [package]
 name = "storyboard-client"
 version = "0.1.0"
+description = "A client for StoryBoard API"
+homepage = "https://github.com/ericho/storyboard-client"
+repository = "https://github.com/ericho/storyboard-client"
+keywords = ["api", "agile", "storyboard"]
+readme = "README.md"
+categories = ["web-programming"]
 authors = ["Erich Cordoba <erich.cm@yandex.com>"]
+license = "mit"
+exclude = ["/.travis.yml", "/ci/*"]
+
+[badges]
+travis-ci = { repository = "ericho/storyboard-client" }
 
 [dependencies]
 serde = "1.0"
