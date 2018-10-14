@@ -5,14 +5,28 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-static STORYBOARD_API: &'static str = "https://storyboard.openstack.org/api/v1";
+mod projects;
+mod stories;
+mod tasks;
+mod client;
+mod error;
+mod users;
 
-pub mod projects;
+pub use projects::{Project, ProjectGroup};
+pub use stories::{Story, Team};
+pub use tasks::{Task, TaskStatusCount};
+pub use error::{ApiError, Error};
+pub use users::{User};
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+/// A client type to connect to the StoryBoard API
+pub struct Client {
+    /// The uri of the API.
+    uri: String
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(untagged)]
+pub enum ApiResult<T, ApiError> {
+    Ok(T),
+    Err(ApiError),
 }
