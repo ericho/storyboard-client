@@ -5,6 +5,3 @@ rust:
   - beta
   - nightly
 script: ci/build.sh
-branches:
-  only:
-    - master
