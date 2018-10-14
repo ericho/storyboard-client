@@ -2,7 +2,6 @@
 name = "storyboard-client"
 version = "0.1.0"
 authors = ["Erich Cordoba <erich.cm@yandex.com>"]
-edition = "2018"
 
 [dependencies]
 serde = "1.0"

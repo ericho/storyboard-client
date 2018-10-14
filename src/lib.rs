@@ -5,14 +5,17 @@ extern crate serde;
 extern crate serde_derive;
 extern crate serde_json;
 
-static STORYBOARD_API: &'static str = "https://storyboard.openstack.org/api/v1";
+mod projects;
+mod stories;
+mod tasks;
+mod client;
 
-pub mod projects;
+pub use projects::{Project, ProjectGroup};
+pub use stories::{Story, Team, User};
+pub use tasks::{Task, TaskStatusCount};
 
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
-    }
+/// A client type to connect to the StoryBoard API
+pub struct Client {
+    /// The uri of the API.
+    uri: String
 }
