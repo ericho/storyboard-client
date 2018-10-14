@@ -8,7 +8,7 @@ keywords = ["api", "agile", "storyboard"]
 readme = "README.md"
 categories = ["web-programming"]
 authors = ["Erich Cordoba <erich.cm@yandex.com>"]
-license = "mit"
+license = "MIT"
 exclude = ["/.travis.yml", "/ci/*"]
 
 [badges]
