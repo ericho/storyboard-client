@@ -1,7 +1,7 @@
 extern crate reqwest;
 
 use std::default::Default;
-use std::error;
+use Error;
 use Client;
 
 use chrono::{DateTime, Utc};
@@ -55,8 +55,8 @@ impl Client {
     ///
     /// ```rust
     /// extern crate storyboard_client;
-    /// # use std::error::Error;
-    /// use storyboard_client::Client;
+    ///
+    /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
     /// fn example() -> Result<(), Box<Error>> {
@@ -67,7 +67,7 @@ impl Client {
     /// }
     /// ```
     pub fn get_all_projects(&self)
-                            -> Result<Vec<Project>, Box<error::Error>> {
+                            -> Result<Vec<Project>, Error> {
         let url = format!("{}/projects?limit={}", self.uri, DEFAULT_PROJ_LIMIT);
         let projects: Vec<Project> = self.fetch_url(&url)?;
         Ok(projects)
@@ -80,8 +80,8 @@ impl Client {
     /// ```rust
     /// extern crate storyboard_client;
     ///
-    /// use storyboard_client::Client;
-    /// # use std::error::Error;
+    /// use storyboard_client::{Client, Error};
+    ///
     /// # fn main() { example().unwrap(); }
     /// fn example() -> Result<(), Box<Error>> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
@@ -91,7 +91,7 @@ impl Client {
     /// }
     /// ```
     pub fn search_projects(&self, s: &str)
-                           -> Result<Vec<Project>, Box<error::Error>> {
+                           -> Result<Vec<Project>, Error> {
         let url = format!("{}/projects/search?q={}", self.uri, s);
         let projects: Vec<Project> = self.fetch_url(&url)?;
         Ok(projects)
@@ -99,7 +99,7 @@ impl Client {
 
     /// Get all registered project groups.
     pub fn get_project_groups(&self)
-                              -> Result<Vec<ProjectGroup>, Box<error::Error>> {
+                              -> Result<Vec<ProjectGroup>, Error> {
         let url = format!("{}/project_groups", self.uri);
         let groups: Vec<ProjectGroup> = self.fetch_url(&url)?;
         Ok(groups)
@@ -107,7 +107,7 @@ impl Client {
 
     /// Get a project group by it's name.
     pub fn get_project_groups_by_name(&self, name: &str)
-                                      -> Result<Vec<ProjectGroup>, Box<error::Error>> {
+                                      -> Result<Vec<ProjectGroup>, Error> {
         let url = format!("{}/project_groups?name={}", self.uri, name);
         let groups: Vec<ProjectGroup> = self.fetch_url(&url)?;
         Ok(groups)
@@ -120,12 +120,12 @@ impl Client {
     /// ```rust
     /// extern crate storyboard_client;
     ///
-    /// use storyboard_client::{Client, ProjectGroup};
-    /// # use std::error::Error;
+    /// use storyboard_client::{Client, Error, ProjectGroup};
+    ///
     /// # fn main() { example().unwrap(); }
     /// fn example() -> Result<(), Box<Error>> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
-    ///     let group = ProjectGroup { id: 10, ..Default::default() };
+    ///     let group = ProjectGroup { id: 86, ..Default::default() };
     ///     let projects = client.get_projects_in_group(&group)?;
     ///     assert_ne!(projects.len(), 0);
     ///     Ok(())
@@ -133,7 +133,7 @@ impl Client {
     /// ```
 
     pub fn get_projects_in_group(&self, g: &ProjectGroup)
-                                 -> Result<Vec<Project>, Box<error::Error>> {
+                                 -> Result<Vec<Project>, Error> {
         let url = format!("{}/project_groups/{}/projects", self.uri, g.id);
         let projects: Vec<Project> = self.fetch_url(&url)?;
         Ok(projects)

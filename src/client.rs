@@ -1,8 +1,11 @@
 extern crate reqwest;
-use std::error;
+
 use serde::de::DeserializeOwned;
 
 use Client;
+use ApiError;
+use ApiResult;
+use Error;
 
 impl Client {
     /// Creates a new client for the StoryBoard API.
@@ -28,8 +31,11 @@ impl Client {
 
     /// Function that performs the request with the specified url.
     pub fn fetch_url<T: DeserializeOwned>(&self, url: &str)
-                                      -> Result<T, Box<error::Error>> {
-        let res = reqwest::get(url)?.json()?;
-        Ok(res)
+                                      -> Result<T, Error> {
+        let res: ApiResult<T, ApiError> = reqwest::get(url)?.json()?;
+        match res {
+            ApiResult::Ok(v) => return Ok(v),
+            ApiResult::Err(_) => return Err(Error::OtherError),
+        };
     }
 }
