@@ -18,7 +18,7 @@ storyboard_client = "*"
 and this into your code:
 
 ```
-extern crate storyboard_client
+extern crate storyboard_client;
 ```
 
 ## Example
