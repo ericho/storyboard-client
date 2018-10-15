@@ -7,19 +7,19 @@ use Error;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct User {
     /// The email of the user.
-    email: String,
+    pub email: String,
     /// To check of the user is allowed to login.
-    enable_login: bool,
+    pub enable_login: bool,
     /// The full name of the user.
-    full_name: String,
+    pub full_name: String,
     /// To check if the user has superuser privileges.
-    is_superuser: bool,
+    pub is_superuser: bool,
     /// The last date when the user logged in.
-    last_login: DateTime<Utc>,
+    pub last_login: DateTime<Utc>,
     /// The `openid` string
-    openid: String,
+    pub openid: String,
     /// The ID of the user.
-    id: i32,
+    pub id: i32,
 }
 
 impl Client {

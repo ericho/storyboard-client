@@ -46,11 +46,11 @@ pub struct Story {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Team {
     /// The date when this story was updated.
-    updated_at: Option<DateTime<Utc>>,
+    pub updated_at: Option<DateTime<Utc>>,
     /// The date when this story was created.
-    created_at: DateTime<Utc>,
+    pub created_at: DateTime<Utc>,
     /// The name of the team.
-    name: String,
+    pub name: String,
 }
 
 impl Client {
