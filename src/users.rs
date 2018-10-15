@@ -33,7 +33,7 @@ impl Client {
     /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let users = client.search_users("erich")?;
     ///     assert_ne!(users.len(), 0);

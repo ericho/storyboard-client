@@ -65,7 +65,7 @@ impl Client {
     /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let stories = client.search_stories("stx")?;
     ///     assert_ne!(stories.len(), 0);
@@ -88,7 +88,7 @@ impl Client {
     /// # use storyboard_client::{Client, Error, Story};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     /// #    let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let story = Story { id: 19, ..Default::default() };
     ///     let tasks = client.get_tasks_in_story(&story)?;

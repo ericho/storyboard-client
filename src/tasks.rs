@@ -2,6 +2,7 @@ use chrono::{DateTime, Utc};
 
 use Client;
 use Error;
+use ProjectGroup;
 
 /// Represents a task from the storyboard API.
 #[derive(Serialize, Deserialize, Debug)]
@@ -56,7 +57,7 @@ impl Client {
     /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let tasks = client.search_tasks("stx")?;
     ///     assert_ne!(tasks.len(), 0);
@@ -67,5 +68,30 @@ impl Client {
         let url = format!("{}/tasks/search?q={}", self.uri, s);
         let stories: Vec<Task> = self.fetch_url(&url)?;
         Ok(stories)
+    }
+
+    /// Get all tasks with the given `ProjectGroup`
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// extern crate storyboard_client;
+    ///
+    /// use storyboard_client::{Client, Error, ProjectGroup};
+    ///
+    /// # fn main() { example().unwrap(); }
+    /// fn example() -> Result<(), Error> {
+    ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
+    ///     let group = ProjectGroup { id: 86, ..Default::default() };
+    ///     let tasks = client.get_tasks_in_project_group(&group)?;
+    ///     assert_ne!(tasks.len(), 0);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_tasks_in_project_group(&self, g: &ProjectGroup)
+                                      -> Result<Vec<Task>, Error> {
+        let url = format!("{}/tasks?project_group_id={}", self.uri, g.id);
+        let tasks: Vec<Task> = self.fetch_url(&url)?;
+        Ok(tasks)
     }
 }

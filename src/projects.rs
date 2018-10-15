@@ -59,7 +59,7 @@ impl Client {
     /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let projects = client.get_all_projects()?;
     ///     assert_ne!(projects.len(), 0);
@@ -83,7 +83,7 @@ impl Client {
     /// use storyboard_client::{Client, Error};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let projects = client.search_projects("stx")?;
     ///     assert_ne!(projects.len(), 0);
@@ -123,7 +123,7 @@ impl Client {
     /// use storyboard_client::{Client, Error, ProjectGroup};
     ///
     /// # fn main() { example().unwrap(); }
-    /// fn example() -> Result<(), Box<Error>> {
+    /// fn example() -> Result<(), Error> {
     ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
     ///     let group = ProjectGroup { id: 86, ..Default::default() };
     ///     let projects = client.get_projects_in_group(&group)?;
@@ -131,7 +131,6 @@ impl Client {
     ///     Ok(())
     /// }
     /// ```
-
     pub fn get_projects_in_group(&self, g: &ProjectGroup)
                                  -> Result<Vec<Project>, Error> {
         let url = format!("{}/project_groups/{}/projects", self.uri, g.id);
