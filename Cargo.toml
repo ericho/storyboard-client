@@ -1,6 +1,6 @@
 [package]
 name = "storyboard-client"
-version = "0.2.0"
+version = "0.2.1"
 description = "A client for StoryBoard API"
 homepage = "https://github.com/ericho/storyboard-client"
 repository = "https://github.com/ericho/storyboard-client"
