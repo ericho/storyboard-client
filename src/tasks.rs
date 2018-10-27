@@ -3,6 +3,7 @@ use chrono::{DateTime, Utc};
 use Client;
 use Error;
 use ProjectGroup;
+use User;
 
 /// Represents a task from the storyboard API.
 #[derive(Serialize, Deserialize, Debug)]
@@ -91,6 +92,31 @@ impl Client {
     pub fn get_tasks_in_project_group(&self, g: &ProjectGroup)
                                       -> Result<Vec<Task>, Error> {
         let url = format!("{}/tasks?project_group_id={}", self.uri, g.id);
+        let tasks: Vec<Task> = self.fetch_url(&url)?;
+        Ok(tasks)
+    }
+
+        /// Get all tasks with the given `ProjectGroup`
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// extern crate storyboard_client;
+    ///
+    /// use storyboard_client::{Client, Error, User};
+    ///
+    /// # fn main() { example().unwrap(); }
+    /// fn example() -> Result<(), Error> {
+    ///     let client = Client::new("https://storyboard.openstack.org/api/v1");
+    ///     let user = User {id : 4662, ..Default::default() };
+    ///     let tasks = client.get_tasks_assigned_to(&user)?;
+    ///     assert_ne!(tasks.len(), 0);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_tasks_assigned_to(&self, u: &User)
+                                      -> Result<Vec<Task>, Error> {
+        let url = format!("{}/tasks?assignee_id={}", self.uri, u.id);
         let tasks: Vec<Task> = self.fetch_url(&url)?;
         Ok(tasks)
     }

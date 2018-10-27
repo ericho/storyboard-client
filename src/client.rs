@@ -45,9 +45,9 @@ impl Client {
                                       -> Result<T, Error> {
         let res: ApiResult<T, ApiError> = self.client.get(url).send()?.json()?;
         match res {
-            ApiResult::Ok(v) => return Ok(v),
-            ApiResult::Err(_) => return Err(Error::OtherError),
-        };
+            ApiResult::Ok(v) => Ok(v),
+            ApiResult::Err(_) => Err(Error::OtherError),
+        }
     }
 }
 
@@ -57,10 +57,10 @@ fn get_proxy() -> Result<reqwest::Proxy, Error> {
     match proxy {
         Some(n) => {
             let p = reqwest::Proxy::https(&n)?;
-            return Ok(p);
+            Ok(p)
         },
         None => {
-            return Err(Error::OtherError)
+            Err(Error::OtherError)
         }
     }
 }

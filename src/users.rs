@@ -1,10 +1,8 @@
-use chrono::{DateTime, Utc};
-
 use Client;
 use Error;
 
 /// Represents an user.
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Clone, Serialize, Default, Deserialize, Debug)]
 pub struct User {
     /// The email of the user.
     pub email: String,
@@ -14,8 +12,6 @@ pub struct User {
     pub full_name: String,
     /// To check if the user has superuser privileges.
     pub is_superuser: bool,
-    /// The last date when the user logged in.
-    pub last_login: DateTime<Utc>,
     /// The `openid` string
     pub openid: String,
     /// The ID of the user.
@@ -46,11 +42,14 @@ impl Client {
         Ok(users)
     }
 
-    /// Search users with the given email.
-    // TODO: This function shall no return a Vec
-    pub fn get_user_by_email(&self, email: &str) -> Result<Vec<User>, Error> {
+    /// Search user with the given email.
+    pub fn get_user_by_email(&self, email: &str) -> Result<User, Error> {
         let url = format!("{}/users?email={}", self.uri, email);
         let users: Vec<User> = self.fetch_url(&url)?;
-        Ok(users)
+        if users.len() == 1 {
+            Ok(users[0].clone())
+        } else {
+            Err(Error::OtherError)
+        }
     }
 }
