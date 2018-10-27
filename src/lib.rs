@@ -21,7 +21,8 @@ pub use users::{User};
 /// A client type to connect to the StoryBoard API
 pub struct Client {
     /// The uri of the API.
-    uri: String
+    uri: String,
+    client: reqwest::Client,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
